@@ -9,7 +9,7 @@ import Register from "./components/Register/Register";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { getCurrentUserToken, setUserLoggedIn } from "./actions/login";
 // import Page404 from "./components/Page404/Page404";
-// import AboutApp from "./components/AboutApp/AboutApp";
+import AboutApp from "./components/AboutApp/AboutApp";
 
 function App(props) {
   const [dateTime, setDateTime] = useState("");
@@ -45,7 +45,7 @@ function App(props) {
           {/* <Route path="*" component={Page404} /> */}
         </Switch>
       </Router>
-      {/* <AboutApp /> */}
+      <AboutApp />
     </>
   );
 }

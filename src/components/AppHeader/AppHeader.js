@@ -10,7 +10,7 @@ export default function AppHeader() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Title of the application
+          React and Node Signup, Signin, Signout features
         </Typography>
       </Toolbar>
     </AppBar>

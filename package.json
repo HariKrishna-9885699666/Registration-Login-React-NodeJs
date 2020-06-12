@@ -1,7 +1,7 @@
 {
   "name": "react-signup-signin-logout-features",
   "version": "0.1.0",
-  "description": "User Signup, Signin and Signout is implemented in React.",
+  "description": "User Signup, Signin and Signout features implemented in React and Node",
   "author": {
     "name": "Hari Krishna Anem",
     "email": "anemharikrishna@gmail.com",
@@ -24,10 +24,12 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
+    "react-swipeable-views": "^0.13.9",
     "react-use-async-hook": "0.0.9",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2",
     "yup": "^0.28.0"
   },
   "scripts": {

@@ -85,8 +85,6 @@ function LogIn(props) {
   const showLoginLoadingLoading = useMemo(() => loginLoading, [loginLoading]);
   handleLoader(showLoginLoadingLoading);
 
-  console.log("isUserLoggedIn", isUserLoggedIn);
-
   return (
     <>
       <AppHeader />
@@ -101,8 +99,8 @@ function LogIn(props) {
           </Typography>
           <Formik
             initialValues={{
-              username: "harikrishna.a@westagilelabs.com",
-              password: "12345678",
+              username: "",
+              password: "",
             }}
             validationSchema={Yup.object({
               username: Yup.string()
