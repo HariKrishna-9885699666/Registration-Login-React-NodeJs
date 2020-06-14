@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import AppBar from "@material-ui/core/AppBar";
@@ -7,8 +7,6 @@ import useStyles from "../../constants/useStyles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
@@ -17,10 +15,18 @@ import _ from "lodash";
 
 function AppTopBar(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const loggedInUserName = JSON.parse(props.getCurrentUserData)?.name;
+  const [name, setName] = useState(null);
+  let loggedInUserName;
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      loggedInUserName = JSON.parse(props.getCurrentUserData)?.name;
+      setName(loggedInUserName);
+    }, 0);
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,11 +35,13 @@ function AppTopBar(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  console.log("name", name);
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Welcome {loggedInUserName}
+          Welcome {name}
         </Typography>
         <Button
           color="inherit"

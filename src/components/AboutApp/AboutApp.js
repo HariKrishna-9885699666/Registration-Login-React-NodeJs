@@ -1,20 +1,34 @@
 import React from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
-import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
 import Zoom from "@material-ui/core/Zoom";
 import Fab from "@material-ui/core/Fab";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import EditIcon from "@material-ui/icons/Edit";
-import UpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { green } from "@material-ui/core/colors";
-import Box from "@material-ui/core/Box";
-import swal from "sweetalert";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ContactsIcon from "@material-ui/icons/Contacts";
+import PhoneAndroidIcon from "@material-ui/icons/PhoneAndroid";
+import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import LinkIcon from "@material-ui/icons/Link";
+import CardGiftcardIcon from "@material-ui/icons/CardGiftcard";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,12 +51,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const useStylesAccordion = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: "33.33%",
+    flexShrink: 0,
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+}));
+
+const useStylesList = makeStyles((theme) => ({
+  root: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
+}
+
 function AboutApp() {
   const classes = useStyles();
+  const classesAccordion = useStylesAccordion();
+  const classesList = useStylesList();
   const theme = useTheme();
 
   const aboutMe = () => {
-    swal("Good job!", "You clicked the button!", "success");
+    handleClickOpen();
   };
 
   const transitionDuration = {
@@ -50,22 +93,245 @@ function AboutApp() {
     exit: theme.transitions.duration.leavingScreen,
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
   return (
-    <div onClick={aboutMe}>
-      <Zoom
-        key="primary"
-        in
-        timeout={transitionDuration}
-        style={{
-          transitionDelay: `${transitionDuration.exit}ms`,
-        }}
-        unmountOnExit
+    <>
+      <div onClick={aboutMe}>
+        <Zoom
+          key="primary"
+          in
+          timeout={transitionDuration}
+          style={{
+            transitionDelay: `${transitionDuration.exit}ms`,
+          }}
+          unmountOnExit
+        >
+          <Fab aria-label="Add" className={classes.fab} color="primary">
+            <AccountCircleIcon />
+          </Fab>
+        </Zoom>
+      </div>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
       >
-        <Fab aria-label="Add" className={classes.fab} color="primary">
-          <AccountCircleIcon />
-        </Fab>
-      </Zoom>
-    </div>
+        <DialogTitle id="alert-dialog-slide-title">{"About App"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            <ExpansionPanel
+              expanded={expanded === "panel1"}
+              onChange={handleChange("panel1")}
+            >
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
+              >
+                <Typography>About Me</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography>
+                  <List component="nav" aria-label="main mailbox folders">
+                    <ListItem button>
+                      <ListItemIcon>
+                        <ContactsIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Hari Krishna Anem" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <PhoneAndroidIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="+91 9885699666" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <AlternateEmailIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="anemharikrishna@gmail.com" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <LinkIcon />
+                      </ListItemIcon>
+                      <a
+                        href="https://harikrishna.netlify.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ListItemText primary="Portfolio" />
+                      </a>
+                    </ListItem>
+                  </List>
+                </Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel
+              expanded={expanded === "panel2"}
+              onChange={handleChange("panel2")}
+            >
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2bh-content"
+                id="panel2bh-header"
+              >
+                <Typography>Packaged Used in React</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography>
+                  <List component="nav" aria-label="main mailbox folders">
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Material UI" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Formik" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Redux" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Lodash" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Moment" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="React Use Async" />
+                    </ListItem>
+                  </List>
+                </Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel
+              expanded={expanded === "panel3"}
+              onChange={handleChange("panel3")}
+            >
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel3bh-content"
+                id="panel3bh-header"
+              >
+                <Typography>Packaged Used in Node</Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography>
+                  <List component="nav" aria-label="main mailbox folders">
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Express" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Sequelize" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Mysql" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Json Web Token" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Helmet" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Morgan" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Hapi Joi" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Moment" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="md5" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Winston" />
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemIcon>
+                        <CardGiftcardIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Nodemon" />
+                    </ListItem>
+                  </List>
+                </Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 export default AboutApp;

@@ -58,6 +58,7 @@ function LogIn(props) {
     initialData: useMemo(() => [], []),
     task: useCallback(async (values, actions) => {
       const reqbody = { ...values };
+      console.log("reqbody", reqbody);
       return {
         response: await loginAPI(reqbody),
         actions,
