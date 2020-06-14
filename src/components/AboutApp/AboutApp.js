@@ -194,7 +194,7 @@ function AboutApp() {
                 aria-controls="panel2bh-content"
                 id="panel2bh-header"
               >
-                <Typography>Packaged Used in React</Typography>
+                <Typography>Packages Used in React</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <Typography>
@@ -248,7 +248,7 @@ function AboutApp() {
                 aria-controls="panel3bh-content"
                 id="panel3bh-header"
               >
-                <Typography>Packaged Used in Node</Typography>
+                <Typography>Packages Used in Node</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
                 <Typography>
