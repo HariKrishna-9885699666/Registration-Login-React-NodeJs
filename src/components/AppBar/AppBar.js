@@ -25,7 +25,7 @@ function AppTopBar(props) {
     const timeout = setTimeout(() => {
       loggedInUserName = JSON.parse(props.getCurrentUserData)?.name;
       setName(loggedInUserName);
-    }, 0);
+    }, 100);
   }, []);
 
   const handleClickOpen = () => {
