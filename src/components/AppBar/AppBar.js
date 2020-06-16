@@ -10,7 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
-import { logout, getCurrentUserData } from "../../actions/login";
+import { logout } from "../../actions/login";
 import _ from "lodash";
 
 function AppTopBar(props) {
@@ -19,14 +19,12 @@ function AppTopBar(props) {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [name, setName] = useState(null);
-  let loggedInUserName;
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      loggedInUserName = JSON.parse(props.getCurrentUserData)?.name;
-      setName(loggedInUserName);
-    }, 100);
-  }, []);
+    if (_.get(props, "userInfo.name")) {
+      setName(props.userInfo.name);
+    }
+  }, [props]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +34,6 @@ function AppTopBar(props) {
     setOpen(false);
   };
 
-  console.log("name", name);
   return (
     <AppBar position="static">
       <Toolbar>
@@ -77,13 +74,13 @@ function AppTopBar(props) {
 const mapStateToProps = (state, ownProps) => {
   return {
     logout,
-    getCurrentUserData,
+    isUserLoggedIn: state.login.isUserLoggedIn,
+    userInfo: state.login.userInfo,
   };
 };
 
 const mapDispatchToProps = {
   logout,
-  getCurrentUserData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppTopBar);

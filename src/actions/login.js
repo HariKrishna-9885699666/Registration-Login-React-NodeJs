@@ -1,4 +1,4 @@
-import { SET_USER_LOGGED_IN } from "./actionTypes";
+import { SET_USER_LOGGED_IN, SET_USER_INFO } from "./actionTypes";
 
 export const setUserLoggedIn = (value, userData, token) => (dispatch) => {
   if (userData) {
@@ -11,11 +11,13 @@ export const setUserLoggedIn = (value, userData, token) => (dispatch) => {
     type: SET_USER_LOGGED_IN,
     payload: value,
   });
+  dispatch({
+    type: SET_USER_INFO,
+    payload: userData,
+  });
 };
 
 export const getCurrentUserToken = localStorage.getItem("userToken") || null;
-
-export const getCurrentUserData = localStorage.getItem("user") || null;
 
 export const logout = () => (dispatch) => {
   dispatch({
