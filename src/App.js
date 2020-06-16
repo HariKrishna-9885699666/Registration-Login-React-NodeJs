@@ -21,7 +21,7 @@ function App(props) {
     if (props.getCurrentUserToken) {
       props.setUserLoggedIn(true);
     }
-  }, [props.getCurrentUserToken]);
+  }, [props, props.getCurrentUserToken]);
   return (
     <>
       <Router>

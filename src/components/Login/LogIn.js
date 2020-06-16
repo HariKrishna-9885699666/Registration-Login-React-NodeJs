@@ -1,12 +1,10 @@
-import React, { useEffect, useCallback, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { connect } from "react-redux";
 import useAsync from "react-use-async-hook";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
@@ -25,7 +23,6 @@ import AppHeader from "../AppHeader/AppHeader";
 import * as handlers from "../../utils/handlers";
 import { loginAPI } from "../../api/login";
 import Notification from "../Notification/Notification";
-import * as types from "../../actions/actionTypes";
 import { setUserLoggedIn } from "../../actions/login";
 
 function LogIn(props) {
@@ -49,11 +46,7 @@ function LogIn(props) {
   };
 
   // User Login
-  const {
-    data: loginAPIResponse,
-    loading: loginLoading,
-    execute: loginAPIExec,
-  } = useAsync({
+  const { loading: loginLoading, execute: loginAPIExec } = useAsync({
     autoExecute: false,
     initialData: useMemo(() => [], []),
     task: useCallback(async (values, actions) => {
@@ -63,22 +56,29 @@ function LogIn(props) {
         actions,
       };
     }, []),
-    dataLoader: useCallback(({ response, actions }) => {
-      if (_.get(response, "data.success")) {
-        actions.resetForm();
-        const respData = _.get(response, "data.data.data");
-        delete respData.message;
-        setUserLoggedIn(true, respData, _.get(response, "headers.authtoken"));
-      }
-      return response.data;
-    }, []),
+    dataLoader: useCallback(
+      ({ response, actions }) => {
+        if (_.get(response, "data.success")) {
+          actions.resetForm();
+          const respData = _.get(response, "data.data.data");
+          delete respData.message;
+          setUserLoggedIn(true, respData, _.get(response, "headers.authtoken"));
+        }
+        return response.data;
+      },
+      [setUserLoggedIn]
+    ),
     onError: useCallback(
       (errorRes) => {
         setNotificationToast(true);
         setSuccessNotificationMessage(false);
         handlers.apiErrorHandler(errorRes, setFailureNotificationMessage);
       },
-      [setFailureNotificationMessage, setNotificationToast]
+      [
+        setFailureNotificationMessage,
+        setNotificationToast,
+        setSuccessNotificationMessage,
+      ]
     ),
   });
 

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import _ from "lodash";
-import notificationConstants from "../constants/notificationConstants";
 
 // eslint-disable-next-line import/prefer-default-export
 export const createFilterChangeHandler = (onChange) => (

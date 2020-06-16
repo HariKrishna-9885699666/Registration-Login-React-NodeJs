@@ -3,7 +3,6 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from "@material-ui/core/Box";
-import useStyles from "../../constants/useStyles";
 import AppTopBar from "../AppBar/AppBar";
 
 export default function DashBoard(props) {

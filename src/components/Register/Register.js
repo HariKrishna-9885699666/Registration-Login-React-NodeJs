@@ -72,7 +72,11 @@ export default function Register(props) {
         setSuccessNotificationMessage(false);
         handlers.apiErrorHandler(errorRes, setFailureNotificationMessage);
       },
-      [setFailureNotificationMessage, setNotificationToast]
+      [
+        setFailureNotificationMessage,
+        setNotificationToast,
+        setSuccessNotificationMessage,
+      ]
     ),
   });
 
