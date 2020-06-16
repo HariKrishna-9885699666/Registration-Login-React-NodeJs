@@ -100,7 +100,7 @@ function LogIn(props) {
           <Formik
             initialValues={{
               username: "",
-              password: "12345678",
+              password: "",
             }}
             validationSchema={Yup.object({
               username: Yup.string()
