@@ -20,6 +20,8 @@ export const apiErrorHandler = (errorRes, setFailureNotificationMessage) => {
     console.log("errorReserrorRes", errorRes.response);
     if (_.get(errorRes, "response.data.error")) {
       setFailureNotificationMessage(_.get(errorRes, "response.data.error"));
+    } else if (_.get(errorRes, "response.data.message")) {
+      setFailureNotificationMessage(_.get(errorRes, "response.data.message"));
     } else {
       setFailureNotificationMessage(
         _.get(errorRes, "response.statusText", "Unknown Error")
