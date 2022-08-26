@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const setupAxios = () => {
-  const baseURL = `https://nodejs-signup-signin-apis.herokuapp.com/api/v1`;
+  const baseURL = `https://nodejs-signup-signin-apis.up.railway.app/api/v1`;
 
   const instance = axios.create({
     baseURL,
