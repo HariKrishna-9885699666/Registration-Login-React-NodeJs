@@ -1,4 +1,4 @@
-## User Signup, Signin and Signout is implemented in React using NodeJs, Mysql.
+## User Signup, Signin and Signout is implemented in React using NodeJs (Express JS), Mysql.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
