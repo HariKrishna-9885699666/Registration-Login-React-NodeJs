@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const setupAxios = () => {
-  const baseURL = `https://nodejs-apis.up.railway.app/api/v1`;
+  const baseURL = `https://registration-login-nodejs.onrender.com/api/v1`;
 
   const instance = axios.create({
     baseURL,
